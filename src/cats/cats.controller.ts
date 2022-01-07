@@ -1,12 +1,9 @@
-import { Controller, Get, Post, Param, Body, UseFilters, ParseIntPipe, UsePipes } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, UseFilters, ParseIntPipe, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateCatDto } from './create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
-import { AllExceptionsFilter } from '../all.exceptions.filter';
-import { JoiValidationPipe } from 'src/joi.validation.pipe';
 
 @Controller('cats')
-@UseFilters(AllExceptionsFilter)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
@@ -22,8 +19,7 @@ export class CatsController {
   }
 
   @Post()
-  @UsePipes(new JoiValidationPipe(createCatSchema))
-  async create(@Body() createCatDto: CreateCatDto) {
+  async create(@Body(new ValidationPipe()) createCatDto: CreateCatDto) {
     console.log(createCatDto);
     this.catsService.create(createCatDto);
   }
