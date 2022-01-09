@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Param, Body, ValidationPipe, Query, DefaultValuePipe, ParseBoolPipe } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, ValidationPipe, Query, DefaultValuePipe, ParseBoolPipe, UseGuards } from '@nestjs/common';
 import { CreateCatDto } from './create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ParseIntPipe } from 'src/parse-int.pipe';
+import { RolesGuard } from 'src/roles.guard';
+import { Roles } from '../roles.decorator';
 
 @Controller('cats')
+@UseGuards(RolesGuard)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
@@ -25,6 +28,7 @@ export class CatsController {
   }
 
   @Post()
+  @Roles('admin')
   async create(@Body(new ValidationPipe()) createCatDto: CreateCatDto) {
     console.log(createCatDto);
     this.catsService.create(createCatDto);
