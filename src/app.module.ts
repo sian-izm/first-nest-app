@@ -20,7 +20,7 @@ import { Cat } from './cats/cat.entity';
       database: 'test',
       entities: [Cat],
       synchronize: true,
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [

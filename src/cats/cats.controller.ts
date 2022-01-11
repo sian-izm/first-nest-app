@@ -16,8 +16,6 @@ export class CatsController {
     @Query('activeOnly', new DefaultValuePipe(false), ParseBoolPipe) activeOnly: boolean,
     @Query('page', new DefaultValuePipe(0), ParseIntPipe) page: number,
   ): Promise<Cat[]> {
-    console.log(activeOnly);
-    console.log(page);
     return this.catsService.findAll();
   }
 
@@ -30,7 +28,7 @@ export class CatsController {
   @Post()
   @Roles('admin')
   async create(@Body(new ValidationPipe()) createCatDto: CreateCatDto) {
-    console.log(createCatDto);
+    // console.log(createCatDto);
     this.catsService.create(createCatDto);
   }
 }
