@@ -28,7 +28,6 @@ export class CatsController {
   @Post()
   @Roles('admin')
   async create(@Body(new ValidationPipe()) createCatDto: CreateCatDto) {
-    // console.log(createCatDto);
     this.catsService.create(createCatDto);
   }
 }
