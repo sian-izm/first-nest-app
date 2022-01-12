@@ -2,8 +2,8 @@ import { Controller, Get, Post, Param, Body, ValidationPipe, Query, DefaultValue
 import { CreateCatDto } from './create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
-import { ParseIntPipe } from 'src/parse-int.pipe';
-import { RolesGuard } from 'src/roles.guard';
+import { ParseIntPipe } from '../parse-int.pipe';
+import { RolesGuard } from '../roles.guard';
 import { Roles } from '../roles.decorator';
 
 @Controller('cats')
