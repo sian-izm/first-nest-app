@@ -1,6 +1,4 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod, Logger } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { APP_INTERCEPTOR } from '@nestjs/core';
@@ -22,9 +20,7 @@ import { Cat } from './cats/cat.entity';
       synchronize: true,
     }),
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
