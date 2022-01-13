@@ -1,18 +1,43 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CatsController } from './cats.controller';
+import { CatsService } from './cats.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Cat } from './cat.entity';
 
 describe('CatsController', () => {
-  let controller: CatsController;
+  let catsController: CatsController;
+  let catsService: CatsService;
+  let mock = [{
+    id: 1,
+    name: 'cat',
+    age: 1,
+    breed: 'hoge',
+  }];
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+
+    const moduleRef = await Test.createTestingModule({
       controllers: [CatsController],
+      providers: [
+        CatsService,
+        {
+          provide: getRepositoryToken(Cat),
+          useValue: {
+            find: jest.fn().mockResolvedValue(mock),
+          }
+        }
+      ],
     }).compile();
 
-    controller = module.get<CatsController>(CatsController);
+    catsService = moduleRef.get<CatsService>(CatsService);
+    catsController = moduleRef.get<CatsController>(CatsController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+  describe('findAll', () => {
+    it('should return an array of cats', async () => {
+      // jest.spyOn(catsService, 'findAll').mockResolvedValue(result);
+
+      expect(await catsController.findAll()).toBe(mock);
+    });
+  })
 });
