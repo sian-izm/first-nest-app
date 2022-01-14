@@ -6,18 +6,22 @@ import { LoggingInterceptor } from './logging.interceptor';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { Cat } from './cats/cat.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     CatsModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.DATABASE_HOST,
       port: 3306,
       username: 'root',
-      database: 'test',
+      database: process.env.DATABASE_NAME,
       entities: [Cat],
       synchronize: true,
+    }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.env.development'],
     }),
   ],
   providers: [
