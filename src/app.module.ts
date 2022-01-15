@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     CatsModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST,
@@ -19,9 +20,6 @@ import { ConfigModule } from '@nestjs/config';
       database: process.env.DATABASE_NAME,
       entities: [Cat],
       synchronize: true,
-    }),
-    ConfigModule.forRoot({
-      envFilePath: ['.env.development.local', '.env.development'],
     }),
   ],
   providers: [
