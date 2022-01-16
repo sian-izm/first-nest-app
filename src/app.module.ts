@@ -11,7 +11,9 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     CatsModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.env.development'],
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST,
