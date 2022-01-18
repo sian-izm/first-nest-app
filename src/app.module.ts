@@ -7,6 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { Cat } from './cats/cat.entity';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { CatsResolver } from './cats/cats.resolver';
+import { CatResolver } from './cat/cat.resolver';
 
 @Module({
   imports: [
@@ -23,12 +27,17 @@ import { ConfigModule } from '@nestjs/config';
       entities: [Cat],
       synchronize: true,
     }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+    }),
   ],
   providers: [
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
+    CatResolver,
   ],
 })
 export class AppModule implements NestModule {
