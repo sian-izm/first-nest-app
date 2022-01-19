@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Cat {
+  age: Float
+  breed: String!
+  id: Float!
+  name: String!
+}
+
 type Query {
-  sayHello: String!
+  cat(id: ID!): Cat!
+  cats: [Cat]!
 }

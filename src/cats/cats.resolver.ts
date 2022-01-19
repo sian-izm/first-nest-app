@@ -7,12 +7,12 @@ export class CatsResolver {
   constructor(private readonly catService: CatsService) {}
 
   @Query(() => [Cat], { nullable: 'items' })
-  findAll() {
+  async cats() {
     return this.catService.findAll();
   }
 
   @Query(() => Cat)
-  findOne(@Args('id', { type: () => ID}) id: number) {
+  async cat(@Args('id', { type: () => ID}) id: number) {
     return this.catService.findOne(id);
   }
 }

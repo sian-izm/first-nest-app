@@ -9,8 +9,6 @@ import { Cat } from './cats/cat.entity';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
-import { CatsResolver } from './cats/cats.resolver';
-import { CatResolver } from './cat/cat.resolver';
 
 @Module({
   imports: [
@@ -37,7 +35,6 @@ import { CatResolver } from './cat/cat.resolver';
       provide: APP_INTERCEPTOR,
       useClass: LoggingInterceptor,
     },
-    CatResolver,
   ],
 })
 export class AppModule implements NestModule {
