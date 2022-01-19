@@ -16,6 +16,7 @@ import { join } from 'path';
     ConfigModule.forRoot({
       envFilePath: ['.env.development.local', '.env.development'],
     }),
+    // TODO: part database configuration into another file
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST,
