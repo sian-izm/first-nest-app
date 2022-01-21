@@ -38,7 +38,7 @@ describe('GraphQL CatsResolver (e2e)', () => {
 
   describe(gql, () => {
     describe('cats', () => {
-      it('should get the cats array', async () => {
+      it('should get the cats array', () => {
         return request(app.getHttpServer())
           .post(gql)
           .send({ query: '{cats {id name age breed}}' })
