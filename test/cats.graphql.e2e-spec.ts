@@ -19,7 +19,7 @@ let repository: Repository<Cat>;
 
 describe('GraphQL CatsResolver (e2e)', () => {
   let app: INestApplication;
-  // FIXME: arrange to use mock
+
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -57,7 +57,7 @@ describe('GraphQL CatsResolver (e2e)', () => {
           .expect((res) => {
             expect(res.body.data.cat).toEqual(cats[0]);
           });
-      })
-    })
+      });
+    });
   })
 })

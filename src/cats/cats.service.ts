@@ -13,6 +13,7 @@ export class CatsService {
   create(cat: Cat) {
     console.log(cat);
     this.catsRepository.save(cat);
+    return this.catsRepository.findOne(cat.id);
   }
 
   findAll(): Promise<Cat[]> {

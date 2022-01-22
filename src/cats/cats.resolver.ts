@@ -1,6 +1,7 @@
-import { Resolver, Query, Args, ID } from '@nestjs/graphql';
+import { Resolver, Query, Args, ID, Mutation } from '@nestjs/graphql';
 import { CatsService } from './cats.service';
 import { Cat } from './models/cat.model';
+import { createCatGql } from './create-cat-gql.dto';
 
 // TODO: write tests
 @Resolver()
@@ -15,5 +16,10 @@ export class CatsResolver {
   @Query(() => Cat)
   async cat(@Args('id', { type: () => ID}) id: number) {
     return this.catService.findOne(id);
+  }
+
+  @Mutation(() => Cat)
+  async createCat(@Args('createCat') createCat: createCatGql) {
+    return this.catService.create(createCat);
   }
 }

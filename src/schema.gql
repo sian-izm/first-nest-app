@@ -9,7 +9,18 @@ type Cat {
   name: String!
 }
 
+type Mutation {
+  createCat(createCat: createCatGql!): Cat!
+}
+
 type Query {
   cat(id: ID!): Cat!
   cats: [Cat]!
+}
+
+input createCatGql {
+  age: Float!
+  breed: String!
+  id: Int!
+  name: String!
 }
