@@ -7,9 +7,9 @@ import { Repository } from "typeorm";
 
 const cats: Cat[] = [
   {
-    name: 'Mike',
+    name: "Mike",
     age: 2,
-    breed: 'mike',
+    breed: "mike",
     id: 4,
   }
 ];
@@ -59,5 +59,25 @@ describe('GraphQL CatsResolver (e2e)', () => {
           });
       });
     });
+    describe('crateCat', () => {
+      it('should create a single cat', () => {
+        let mutationQuery = `
+        mutation {
+          createCat(createCat: {id:4, age:2, breed:"mike", name:"Mike"}) {
+            id
+            age
+            breed
+            name
+          }
+        }`;
+        return request(app.getHttpServer())
+          .post(gql)
+          .send({ query: mutationQuery })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.data.createCat).toEqual(cats[0]);
+          })
+      })
+    })
   })
 })
