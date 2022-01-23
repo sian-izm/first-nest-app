@@ -10,10 +10,8 @@ export class CatsService {
     private catsRepository: Repository<Cat>,
   ){}
 
-  create(cat: Cat) {
-    console.log(cat);
-    this.catsRepository.save(cat);
-    return this.catsRepository.findOne(cat.id);
+  create(cat: Cat): Promise<Cat> {
+    return this.catsRepository.save(cat);
   }
 
   findAll(): Promise<Cat[]> {

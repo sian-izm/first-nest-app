@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Cat {
-  age: Float
+  age: Int!
   breed: String!
   id: Float!
   name: String!

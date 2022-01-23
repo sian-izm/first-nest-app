@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body, ValidationPipe, Query, DefaultValuePipe, ParseBoolPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, ValidationPipe, UseGuards } from '@nestjs/common';
 import { CreateCatDto } from './create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
@@ -12,10 +12,7 @@ export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Get()
-  async findAll(
-    // @Query('activeOnly', new DefaultValuePipe(false), ParseBoolPipe) activeOnly: boolean,
-    // @Query('page', new DefaultValuePipe(0), ParseIntPipe) page: number,
-  ): Promise<Cat[]> {
+  async findAll(): Promise<Cat[]> {
     return this.catsService.findAll();
   }
 
