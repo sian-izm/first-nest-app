@@ -21,4 +21,8 @@ export class CatsService {
   findOne(id: number): Promise<Cat> {
     return this.catsRepository.findOne(id);
   }
+
+  async delete(id: number): Promise<void> {
+    await this.catsRepository.delete(id);
+  }
 }
