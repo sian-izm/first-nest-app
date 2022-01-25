@@ -28,7 +28,6 @@ describe('GraphQL CatsResolver (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     repository = moduleFixture.get('CatRepository');
-    await repository.save(cats);
   });
 
   afterAll(async () => {
@@ -38,7 +37,9 @@ describe('GraphQL CatsResolver (e2e)', () => {
 
   describe(gql, () => {
     describe('cats', () => {
-      it('should get the cats array', () => {
+      it('should get the cats array', async () => {
+        await repository.save(cats);
+
         return request(app.getHttpServer())
           .post(gql)
           .send({ query: '{cats {id name age breed}}' })
@@ -49,7 +50,9 @@ describe('GraphQL CatsResolver (e2e)', () => {
       });
     });
     describe('cat', () => {
-      it('should get a single cat', () => {
+      it('should get a single cat', async () => {
+        await repository.save(cats);
+
         return request(app.getHttpServer())
           .post(gql)
           .send({ query: '{cat(id: 4){id age name breed}}'})
@@ -80,7 +83,9 @@ describe('GraphQL CatsResolver (e2e)', () => {
       });
     });
     describe('deleteCat', () => {
-      it('should delete a singe cat', () => {
+      it('should delete a singe cat', async () => {
+        await repository.save(cats);
+
         let mutationQuery = `
         mutation {
           deleteCat(id:4) {
