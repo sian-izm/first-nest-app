@@ -11,7 +11,7 @@ type Cat {
 
 type Mutation {
   createCat(createCat: createCatGql!): Cat!
-  deleteCat(id: Float!): Cat!
+  deleteCat(id: Float!): Cat
 }
 
 type Query {

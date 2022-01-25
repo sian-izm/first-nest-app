@@ -3,7 +3,6 @@ import { CatsService } from './cats.service';
 import { Cat } from './models/cat.model';
 import { createCatGql } from './create-cat-gql.dto';
 
-// TODO: write tests
 @Resolver()
 export class CatsResolver {
   constructor(private readonly catService: CatsService) {}
@@ -23,7 +22,7 @@ export class CatsResolver {
     return this.catService.create(createCat);
   }
 
-  @Mutation(() => Cat)
+  @Mutation(() => Cat, { nullable: true })
   async deleteCat(@Args('id') id: number) {
     return this.catService.delete(id);
   }
