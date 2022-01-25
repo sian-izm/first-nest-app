@@ -76,8 +76,28 @@ describe('GraphQL CatsResolver (e2e)', () => {
           .expect(200)
           .expect((res) => {
             expect(res.body.data.createCat).toEqual(cats[0]);
-          })
-      })
+          });
+      });
+    });
+    describe('deleteCat', () => {
+      it('should delete a singe cat', () => {
+        let mutationQuery = `
+        mutation {
+          deleteCat(id:4) {
+            id
+            age
+            breed
+            name
+          }
+        }`;
+        return request(app.getHttpServer())
+          .post(gql)
+          .send({ query: mutationQuery })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.data.deleteCat).toEqual(null);
+          });
+      });
     })
   })
 })
