@@ -11,6 +11,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { AppController } from './app/app.controller';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { UsersModule } from './users/users.module';
       useClass: LoggingInterceptor,
     },
   ],
+  controllers: [AppController],
 })
 export class AppModule implements NestModule {
   constructor(private connection: Connection) {}
