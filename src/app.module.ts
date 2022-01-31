@@ -12,6 +12,7 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { AppController } from './app.controller';
       port: 3306,
       username: 'root',
       database: process.env.DATABASE_NAME,
-      entities: [Cat],
+      entities: [Cat, User],
       synchronize: true,
     }),
     GraphQLModule.forRoot({
