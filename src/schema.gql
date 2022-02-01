@@ -17,6 +17,13 @@ type Mutation {
 type Query {
   cat(id: ID!): Cat!
   cats: [Cat]!
+  user(name: String!): User
+}
+
+type User {
+  id: Float!
+  name: String!
+  password: String!
 }
 
 input createCatGql {
