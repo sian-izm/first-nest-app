@@ -25,4 +25,8 @@ export class UsersService {
   findOne(name: string): Promise<User> {
     return this.userRepository.findOne({name: name})
   }
+
+  create(user: User): Promise<User> {
+    return this.userRepository.save(user);
+  }
 }

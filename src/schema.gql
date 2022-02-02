@@ -12,6 +12,7 @@ type Cat {
 type Mutation {
   createCat(createCat: createCatGql!): Cat!
   deleteCat(id: Float!): Cat
+  signup(input: createUserGql!): User!
 }
 
 type Query {
@@ -31,4 +32,10 @@ input createCatGql {
   breed: String!
   id: Int!
   name: String!
+}
+
+input createUserGql {
+  id: Int!
+  name: String!
+  password: String!
 }
