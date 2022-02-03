@@ -47,5 +47,28 @@ describe('GraphQL UsersResolver (e2e)', () => {
           });
       });
     });
+    describe('createUser', () => {
+      it('should create a user', async () => {
+        let mutationQuery = `
+        mutation {
+          signup(input: {id:1, name:"Hoge", password:"UpdateMe"}) {
+            id
+            name
+            password
+          }
+        }`;
+        return request(app.getHttpServer())
+          .post(gql)
+          .send({ query: mutationQuery })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.data.signup).toEqual({
+              id: 1,
+              name: "Hoge",
+              password: "UpdateMe",
+            });
+          });
+        });
+    });
   });
 })
