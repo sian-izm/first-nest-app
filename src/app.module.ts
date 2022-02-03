@@ -36,20 +36,20 @@ import { User } from './users/user.entity';
     AuthModule,
     UsersModule,
   ],
-  // providers: [
-  //   {
-  //     provide: APP_INTERCEPTOR,
-  //     useClass: LoggingInterceptor,
-  //   },
-  // ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
   controllers: [AppController],
 })
 export class AppModule implements NestModule {
   constructor(private connection: Connection) {}
 
   configure(consumer: MiddlewareConsumer) {
-    // consumer
-    //   .apply(LoggerMiddleware)
-    //   .forRoutes({ path: 'cats', method: RequestMethod.GET });
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: 'cats', method: RequestMethod.GET });
   }
 }

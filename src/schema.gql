@@ -19,6 +19,7 @@ type Query {
   cat(id: ID!): Cat!
   cats: [Cat]!
   user(name: String!): User
+  whoAmI: User!
 }
 
 type User {
