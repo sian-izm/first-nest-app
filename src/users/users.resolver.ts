@@ -5,10 +5,14 @@ import { createUserGql } from './create-user-gql.dto';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/gql-auth-guard';
 import { CurrentUser } from './current-user';
+import { AuthService } from 'src/auth/auth.service';
 
 @Resolver()
 export class UsersResolver {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+    ) {}
 
   @Query(() => User, { nullable: true })
   async user(@Args('name', { type: () => String }) name: string) {
@@ -23,6 +27,6 @@ export class UsersResolver {
 
   @Mutation(() => User)
   async signup(@Args('input') createUser: createUserGql) {
-    return this.usersService.create(createUser);
+    return this.authService.register(createUser);
   }
 }
