@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/user.model';
@@ -10,15 +10,6 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
-
-  async validateUser(name: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(name);
-    if (user && user.password === pass ) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
 
   async login(user: any) {
     const payload = { name: user.name, sub: user.id };
@@ -36,5 +27,22 @@ export class AuthService {
     });
     createdUser.password = undefined;
     return createdUser;
+  }
+
+  async authenticatedUser(name: string, plainTextPassword: string) {
+    const user = await this.usersService.findOne(name);
+    await this.verifyPassword(plainTextPassword, user.password);
+    user.password = undefined;
+    return user;
+  }
+
+  private async verifyPassword(plainTextPassword: string, hashedPassword: string) {
+    const isPasswordMatching = await bcrypt.compare(
+      plainTextPassword,
+      hashedPassword
+    );
+    if (!isPasswordMatching) {
+      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+    }
   }
 }
