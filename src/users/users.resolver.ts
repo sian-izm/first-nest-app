@@ -2,7 +2,7 @@ import { Resolver, Args, Query } from '@nestjs/graphql';
 import { User } from './user.model';
 import { UsersService } from './users.service';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/auth/gql-auth-guard';
+import { GqlAuthGuard } from '../auth/gql-auth-guard';
 import { CurrentUser } from './current-user';
 
 @Resolver()

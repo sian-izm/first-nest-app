@@ -54,7 +54,6 @@ describe('GraphQL UsersResolver (e2e)', () => {
           signup(input: {id:1, name:"Hoge", password:"UpdateMe"}) {
             id
             name
-            password
           }
         }`;
         return request(app.getHttpServer())
@@ -65,7 +64,6 @@ describe('GraphQL UsersResolver (e2e)', () => {
             expect(res.body.data.signup).toEqual({
               id: 1,
               name: "Hoge",
-              password: "UpdateMe",
             });
           });
         });
