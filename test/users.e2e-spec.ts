@@ -47,7 +47,7 @@ describe('GraphQL UsersResolver (e2e)', () => {
           });
       });
     });
-    describe('createUser', () => {
+    describe('signup', () => {
       it('should create a user', async () => {
         let mutationQuery = `
         mutation {
@@ -67,6 +67,43 @@ describe('GraphQL UsersResolver (e2e)', () => {
             });
           });
         });
+    });
+    describe('whoAmI', () => {
+      it('should return my account', async () => {
+        let mutationQuery = `
+        mutation {
+          signup(input: {id:1, name:"Hoge", password:"UpdateMe"}) {
+            id
+            name
+          }
+        }`;
+        await request(app.getHttpServer())
+          .post(gql)
+          .send({ query: mutationQuery })
+          .expect(200);
+
+        const loginResponse = await request(app.getHttpServer())
+          .post('/auth/login')
+          .send({ username: 'Hoge', password: 'UpdateMe'} )
+          .expect(201);
+        const { jwt } = loginResponse.body.access_token;
+        let query = `
+        query {
+          whoAmI{
+            name
+          }
+        }`
+        await request(app.getHttpServer())
+          .post(gql)
+          .send({ query: query })
+          .set('Authorization', 'Bear ' + jwt )
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.data.user).toEqual({
+              name: 'Hoge',
+            });
+          });
+      });
     });
   });
 })
