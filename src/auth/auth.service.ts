@@ -31,6 +31,9 @@ export class AuthService {
 
   async authenticatedUser(name: string, plainTextPassword: string) {
     const user = await this.usersService.findOne(name);
+    if (!user) {
+      throw new HttpException('User does not exist or incorrect password', HttpStatus.BAD_REQUEST);
+    }
     await this.verifyPassword(plainTextPassword, user.password);
     user.password = undefined;
     return user;
@@ -42,7 +45,7 @@ export class AuthService {
       hashedPassword
     );
     if (!isPasswordMatching) {
-      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User does not exist or incorrect password', HttpStatus.BAD_REQUEST);
     }
   }
 }
