@@ -86,20 +86,22 @@ describe('GraphQL UsersResolver (e2e)', () => {
           .post('/auth/login')
           .send({ username: 'Hoge', password: 'UpdateMe'} )
           .expect(201);
-        const { jwt } = loginResponse.body.access_token;
+
+        const jwt = loginResponse.body.access_token;
         let query = `
         query {
           whoAmI{
             name
           }
-        }`
+        }`;
+
         await request(app.getHttpServer())
           .post(gql)
           .send({ query: query })
-          .set('Authorization', 'Bear ' + jwt )
+          .set('Authorization', 'Bearer ' + jwt )
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.user).toEqual({
+            expect(res.body.data.whoAmI).toEqual({
               name: 'Hoge',
             });
           });
