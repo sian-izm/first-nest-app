@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
@@ -35,8 +35,6 @@ describe('CatsController', () => {
 
   describe('findAll', () => {
     it('should return an array of cats', async () => {
-      // jest.spyOn(catsService, 'findAll').mockResolvedValue(result);
-
       expect(await catsController.findAll()).toBe(mock);
     });
   })
