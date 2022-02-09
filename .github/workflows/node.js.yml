@@ -23,6 +23,8 @@ jobs:
     - uses: mirromutth/mysql-action@v1.1
       with:
         mysql database: 'nest_development'
+        mysql user: 'root'
+        mysql root password: 'root'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
