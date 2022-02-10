@@ -24,7 +24,7 @@ jobs:
       with:
         mysql database: 'nest_development'
         mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-        mysql password: 'temp-password'
+        mysql password: 'password'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
