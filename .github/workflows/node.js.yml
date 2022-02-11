@@ -22,8 +22,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: mirromutth/mysql-action@v1.1
       with:
-        mysql database: 'nest_development'
-        mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+        mysql database: 'nest_test'
+        mysql user: 'developer'
         mysql password: 'password'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
