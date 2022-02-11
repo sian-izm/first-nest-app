@@ -26,7 +26,7 @@ import { User } from './users/user.entity';
       port: 3306,
       username: 'developer',
       password: 'password',
-      database: process.env.DATABASE_NAME,
+      database: 'nest_' + process.env.NODE_ENV,
       entities: [Cat, User],
       synchronize: true,
     }),
