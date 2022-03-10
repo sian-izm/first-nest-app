@@ -1,14 +1,14 @@
-import { InputType, Field, Int } from "@nestjs/graphql";
+import { InputType, Field, Int, ID, Scalar } from "@nestjs/graphql";
 
 @InputType()
 export class createCatGql {
-  @Field(() => Int)
+  @Field(() => ID)
   id: number;
 
-  @Field()
+  @Field(() => String)
   name: string;
 
-  @Field()
+  @Field(() => Int)
   age: number;
 
   @Field()

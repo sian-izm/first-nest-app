@@ -29,9 +29,9 @@ type User {
 }
 
 input createCatGql {
-  age: Float!
+  age: Int!
   breed: String!
-  id: Int!
+  id: ID!
   name: String!
 }
 
