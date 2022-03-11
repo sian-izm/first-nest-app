@@ -31,7 +31,7 @@ type User {
 input createCatGql {
   age: Int!
   breed: String!
-  id: ID!
+  id: ID
   name: String!
 }
 
