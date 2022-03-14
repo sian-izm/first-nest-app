@@ -36,7 +36,7 @@ input createCatGql {
 }
 
 input createUserGql {
-  id: ID!
+  id: ID
   name: String!
   password: String!
 }
