@@ -5,7 +5,7 @@
 type Cat {
   age: Int!
   breed: String!
-  id: Float!
+  id: ID!
   name: String!
 }
 
@@ -23,7 +23,7 @@ type Query {
 }
 
 type User {
-  id: Float!
+  id: ID!
   name: String!
   password: String!
 }
@@ -36,7 +36,7 @@ input createCatGql {
 }
 
 input createUserGql {
-  id: Int!
+  id: ID!
   name: String!
   password: String!
 }

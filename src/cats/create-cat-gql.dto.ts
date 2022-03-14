@@ -1,5 +1,4 @@
 import { InputType, Field, Int, ID, Scalar } from "@nestjs/graphql";
-import { IsOptional } from "class-validator";
 
 @InputType()
 export class createCatGql {
