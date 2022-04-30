@@ -18,7 +18,7 @@ export class CatsController {
 
   @Get(':id')
   async findOne(
-    @Param('id', new ParseIntPipe()) id) {
+    @Param('id', new ParseIntPipe()) id): Promise<Cat> {
     return this.catsService.findOne(id);
   }
 
