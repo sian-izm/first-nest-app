@@ -43,7 +43,11 @@ describe('GraphQL UsersResolver (e2e)', () => {
           .send({ query: '{user(name: "Hoge"){id name password}}'})
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.user).toEqual(users[0]);
+            expect(res.body.data.user).toEqual({
+              id: '1',
+              name: 'Hoge',
+              password: 'UpdateMe'
+            });
           });
       });
     });

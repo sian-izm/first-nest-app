@@ -45,7 +45,14 @@ describe('GraphQL CatsResolver (e2e)', () => {
           .send({ query: '{cats {id name age breed}}' })
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.cats).toEqual(cats);
+            expect(res.body.data.cats).toEqual([
+              {
+                name: "Mike",
+                age: 2,
+                breed: "mike",
+                id: '4',
+              }
+            ]);
           });
       });
     });
@@ -58,7 +65,12 @@ describe('GraphQL CatsResolver (e2e)', () => {
           .send({ query: '{cat(id: 4){id age name breed}}'})
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.cat).toEqual(cats[0]);
+            expect(res.body.data.cat).toEqual({
+                name: "Mike",
+                age: 2,
+                breed: "mike",
+                id: '4',
+              });
           });
       });
     });
@@ -78,7 +90,12 @@ describe('GraphQL CatsResolver (e2e)', () => {
           .send({ query: mutationQuery })
           .expect(200)
           .expect((res) => {
-            expect(res.body.data.createCat).toEqual(cats[0]);
+            expect(res.body.data.createCat).toEqual({
+                name: "Mike",
+                age: 2,
+                breed: "mike",
+                id: '4',
+              });
           });
       });
     });
