@@ -55,8 +55,7 @@ describe('GraphQL UsersResolver (e2e)', () => {
       it('should create a user', async () => {
         let mutationQuery = `
         mutation {
-          signup(input: {id:1, name:"Hoge", password:"UpdateMe"}) {
-            id
+          signup(input: {name:"Hoge", password:"UpdateMe"}) {
             name
           }
         }`;
@@ -66,7 +65,6 @@ describe('GraphQL UsersResolver (e2e)', () => {
           .expect(200)
           .expect((res) => {
             expect(res.body.data.signup).toEqual({
-              id: 1,
               name: "Hoge",
             });
           });
@@ -74,21 +72,20 @@ describe('GraphQL UsersResolver (e2e)', () => {
     });
     describe('whoAmI', () => {
       it('should return my account', async () => {
-        let mutationQuery = `
+        let signupQuery = `
         mutation {
-          signup(input: {id:1, name:"Hoge", password:"UpdateMe"}) {
-            id
+          signup(input: {name:"Huga", password:"UpdateMe"}) {
             name
           }
         }`;
         await request(app.getHttpServer())
           .post(gql)
-          .send({ query: mutationQuery })
+          .send({ query: signupQuery })
           .expect(200);
 
         const loginResponse = await request(app.getHttpServer())
           .post('/auth/login')
-          .send({ username: 'Hoge', password: 'UpdateMe'} )
+          .send({ username: 'Huga', password: 'UpdateMe'} )
           .expect(201);
 
         const jwt = loginResponse.body.access_token;
@@ -106,7 +103,7 @@ describe('GraphQL UsersResolver (e2e)', () => {
           .expect(200)
           .expect((res) => {
             expect(res.body.data.whoAmI).toEqual({
-              name: 'Hoge',
+              name: 'Huga',
             });
           });
       });
