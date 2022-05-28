@@ -78,8 +78,7 @@ describe('GraphQL CatsResolver (e2e)', () => {
       it('should create a single cat', () => {
         let mutationQuery = `
         mutation {
-          createCat(createCat: {id:4, age:2, breed:"mike", name:"Mike"}) {
-            id
+          createCat(createCat: {age:2, breed:"mike", name:"Mike"}) {
             age
             breed
             name
@@ -94,7 +93,6 @@ describe('GraphQL CatsResolver (e2e)', () => {
                 name: "Mike",
                 age: 2,
                 breed: "mike",
-                id: '4',
               });
           });
       });
